@@ -27,7 +27,7 @@ macOS 15 or later, Apple Silicon, with [Homebrew](https://brew.sh):
 brew install --cask payroof/tap/wallet
 ```
 
-The app is ad-hoc signed, not notarized. The cask clears the quarantine flag for you.
+The app is not notarized yet: on first launch, open it via System Settings → Privacy & Security → Open Anyway.
 You can also download the zip of `PayroofWallet.app` from
 [GitHub Releases](https://github.com/payroof/wallet/releases).
 

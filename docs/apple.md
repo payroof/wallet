@@ -387,8 +387,10 @@ are not automated.
 
 Versions follow [SemVer](https://semver.org). The app's `MARKETING_VERSION` (in
 `macos/project.yml` and `ios/project.yml`) matches `Cargo.toml`, and changes are listed in
-[CHANGELOG.md](../CHANGELOG.md). A `vX.Y.Z` tag runs the release workflow: checks, then
-[`payroof-wallet-core`](https://crates.io/crates/payroof-wallet-core) on crates.io, then a
-GitHub release with the macOS app zip. The macOS app is ad-hoc signed, not notarized; the
-Homebrew cask clears the quarantine flag on install. Notarisation and App Store submission
+[CHANGELOG.md](../CHANGELOG.md). A `vX.Y.Z` tag runs the release workflow: checks, then the
+macOS app build, then a GitHub release with the app zip, then
+[`payroof-wallet-core`](https://crates.io/crates/payroof-wallet-core) on crates.io. The
+[Homebrew tap](https://github.com/payroof/homebrew-tap) picks up the new release on its own.
+The macOS app is ad-hoc signed, not notarized, so macOS asks once on first launch (System
+Settings → Privacy & Security → Open Anyway). Notarisation and App Store submission
 need your Apple team and are not automated.
