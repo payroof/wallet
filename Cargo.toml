@@ -1,0 +1,69 @@
+[package]
+name = "payroof-wallet-core"
+description = "Local mnemonic vault, deterministic addresses, and cryptocurrency signing for Payroof Wallet"
+repository = "https://github.com/payroof/wallet"
+homepage = "https://github.com/payroof/wallet"
+keywords = ["wallet", "ethereum", "evm", "bip39", "self-custody"]
+categories = ["cryptography::cryptocurrencies"]
+readme = "README.md"
+# The published crate holds only what it builds from (no apps, CI, tests or Docker).
+include = ["src/**", "build.rs", "assets/defaults.json", "assets/providers.json", "assets/icons/**", "README.md", "CHANGELOG.md", "LICENSE-*"]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+license = "MIT OR Apache-2.0"
+[lib]
+crate-type = ["lib", "staticlib", "cdylib"]
+[features]
+default = []
+local-development = []
+[dependencies]
+anyhow = "=1.0.104"
+argon2 = "=0.6.0"
+altcha = "=1.0.0"
+base64 = "=0.23.1"
+bip32 = { version = "=0.6.0", features = ["alloc", "secp256k1"] }
+bip39 = { version = "=3.0.0", features = ["zeroize"] }
+chacha20poly1305 = "=0.11.0"
+getrandom = "=0.4.3"
+hex = "=0.4.3"
+hmac = "=0.13.0"
+k256 = { version = "=0.14.0", features = ["arithmetic", "ecdsa"] }
+ed25519-dalek = { version = "=3.0.0", features = ["zeroize"] }
+num-bigint = "=0.5.1"
+reqwest = { version = "=0.13.5", default-features = false, features = ["json", "rustls", "query"] }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.154"
+sha2 = "=0.11.1"
+sha3 = "=0.12.0"
+thiserror = "=2.0.21"
+tokio = { version = "=1.53.3", features = ["rt", "time"] }
+uniffi = { version = "=0.32.2", features = ["cli"] }
+url = "=2.5.8"
+zeroize = { version = "=1.9.1", features = ["derive", "serde"] }
+
+[build-dependencies]
+serde_json = "=1.0.154"
+
+[dev-dependencies]
+tokio = { version = "=1.53.3", features = ["rt", "macros"] }
+
+# `missing_docs` is left off on purpose: the crate's API is the UniFFI surface in `ffi`,
+# which is documented. The other modules are `pub` only so integration tests can reach them.
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+# Every failure crosses the FFI as the one opaque `WalletError::Rejected`, by design, so
+# per-function `# Errors` sections would only repeat that.
+missing_errors_doc = "allow"
+# The public functions that are not part of the FFI exist for integration tests. A
+# `#[must_use]` on each would add noise without protecting a real caller.
+must_use_candidate = "allow"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"

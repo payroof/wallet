@@ -1,0 +1,42 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  CARGO_TERM_COLOR: always
+jobs:
+  rust:
+    name: fmt · clippy · test · release build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: rustup toolchain install  # the version and components in rust-toolchain.toml
+      - run: cargo fmt --check
+      - run: cargo clippy --locked --all-targets -- -D warnings
+      - run: cargo test --locked --all-targets
+      - run: cargo build --locked --release
+  apple:
+    name: macOS and iOS apps
+    runs-on: macos-26
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: brew install xcodegen swift-format
+      - run: rustup toolchain install  # the version and components in rust-toolchain.toml
+      - run: swift-format lint --strict -r apple macos/Tests macos/App ios/App tests
+      - run: ./build-apple.sh macos
+      - run: ./build-apple.sh ios
+      - name: macOS unit tests
+        run: >
+          xcodebuild -project macos/PayroofWallet.xcodeproj -scheme PayroofWallet
+          -destination 'platform=macOS' -derivedDataPath target/apple-tests
+          CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM= test
+      - run: bash tests/swift-harnesses.sh

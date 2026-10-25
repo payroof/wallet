@@ -1,0 +1,324 @@
+{
+  "networks": [
+    {
+      "id": "eip155:1",
+      "name": "Ethereum",
+      "transaction_mode": "eip1559",
+      "endpoints": [
+        {
+          "name": "PublicNode",
+          "url": "https://ethereum.publicnode.com"
+        },
+        {
+          "name": "dRPC",
+          "url": "https://eth.drpc.org"
+        }
+      ],
+      "endpoint": "https://ethereum.publicnode.com",
+      "enabled": true,
+      "explorer": "https://etherscan.io",
+      "color": "#627EEA",
+      "logo": "eip155:1/icon.svg"
+    },
+    {
+      "id": "eip155:8453",
+      "name": "Base",
+      "transaction_mode": "eip1559",
+      "endpoints": [
+        {
+          "name": "PublicNode",
+          "url": "https://base.publicnode.com"
+        },
+        {
+          "name": "Base public RPC",
+          "url": "https://mainnet.base.org"
+        }
+      ],
+      "endpoint": "https://base.publicnode.com",
+      "enabled": true,
+      "explorer": "https://basescan.org",
+      "color": "#0052FF",
+      "logo": "eip155:8453/icon.svg"
+    },
+    {
+      "id": "eip155:137",
+      "name": "Polygon",
+      "transaction_mode": "eip1559",
+      "endpoints": [
+        {
+          "name": "PublicNode",
+          "url": "https://polygon.publicnode.com"
+        },
+        {
+          "name": "dRPC",
+          "url": "https://polygon.drpc.org"
+        }
+      ],
+      "endpoint": "https://polygon.publicnode.com",
+      "enabled": true,
+      "explorer": "https://polygonscan.com",
+      "color": "#8247E5",
+      "logo": "eip155:137/icon.svg"
+    },
+    {
+      "id": "eip155:42161",
+      "name": "Arbitrum One",
+      "transaction_mode": "eip1559",
+      "endpoints": [
+        {
+          "name": "Arbitrum public RPC",
+          "url": "https://arb1.arbitrum.io/rpc"
+        },
+        {
+          "name": "PublicNode",
+          "url": "https://arbitrum.publicnode.com"
+        }
+      ],
+      "endpoint": "https://arb1.arbitrum.io/rpc",
+      "enabled": true,
+      "explorer": "https://arbiscan.io",
+      "color": "#28A0F0",
+      "logo": "eip155:42161/icon.svg"
+    },
+    {
+      "id": "eip155:56",
+      "name": "BNB Smart Chain",
+      "transaction_mode": "legacy",
+      "endpoints": [
+        {
+          "name": "PublicNode",
+          "url": "https://bsc-rpc.publicnode.com"
+        },
+        {
+          "name": "BNB Chain public RPC",
+          "url": "https://bsc-dataseed.bnbchain.org"
+        }
+      ],
+      "endpoint": "https://bsc-rpc.publicnode.com",
+      "enabled": true,
+      "explorer": "https://bscscan.com",
+      "color": "#D99A00",
+      "logo": "eip155:56/icon.svg"
+    }
+  ],
+  "assets": [
+    {
+      "id": "eip155:1/slip44:60",
+      "chain": "eip155:1",
+      "kind": "native",
+      "symbol": "ETH",
+      "decimals": 18,
+      "name": "Ether",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "ethereum.usd"
+      },
+      "color": "#627EEA",
+      "logo": "eip155:1/slip44:60/icon.svg"
+    },
+    {
+      "id": "eip155:1/erc20:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "chain": "eip155:1",
+      "kind": "erc20",
+      "symbol": "USDC",
+      "decimals": 6,
+      "name": "USD Coin",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "usd-coin.usd"
+      },
+      "color": "#2775CA",
+      "logo": "eip155:1/erc20:0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/icon.svg"
+    },
+    {
+      "id": "eip155:1/erc20:0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "chain": "eip155:1",
+      "kind": "erc20",
+      "symbol": "USDT",
+      "decimals": 6,
+      "name": "Tether USD",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "tether.usd"
+      },
+      "color": "#26A17B",
+      "logo": "eip155:1/erc20:0xdac17f958d2ee523a2206206994597c13d831ec7/icon.svg"
+    },
+    {
+      "id": "eip155:1/erc20:0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "chain": "eip155:1",
+      "kind": "erc20",
+      "symbol": "WETH",
+      "decimals": 18,
+      "name": "Wrapped Ether",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "weth.usd"
+      },
+      "color": "#EB4D8C",
+      "logo": "eip155:1/erc20:0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2/icon.svg"
+    },
+    {
+      "id": "eip155:8453/slip44:60",
+      "chain": "eip155:8453",
+      "kind": "native",
+      "symbol": "ETH",
+      "decimals": 18,
+      "name": "Ether",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "ethereum.usd"
+      },
+      "color": "#3B6FE0",
+      "logo": "eip155:8453/slip44:60/icon.svg"
+    },
+    {
+      "id": "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "chain": "eip155:8453",
+      "kind": "erc20",
+      "symbol": "USDC",
+      "decimals": 6,
+      "name": "USD Coin",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "usd-coin.usd"
+      },
+      "color": "#2775CA",
+      "logo": "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913/icon.svg"
+    },
+    {
+      "id": "eip155:137/slip44:966",
+      "chain": "eip155:137",
+      "kind": "native",
+      "symbol": "POL",
+      "decimals": 18,
+      "name": "Polygon",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "polygon-ecosystem-token.usd"
+      },
+      "color": "#8247E5",
+      "logo": "eip155:137/slip44:966/icon.svg"
+    },
+    {
+      "id": "eip155:137/erc20:0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
+      "chain": "eip155:137",
+      "kind": "erc20",
+      "symbol": "USDC",
+      "decimals": 6,
+      "name": "USD Coin",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "usd-coin.usd"
+      },
+      "color": "#2775CA",
+      "logo": "eip155:137/erc20:0x3c499c542cef5e3811e1192ce70d8cc03d5c3359/icon.svg"
+    },
+    {
+      "id": "eip155:42161/slip44:60",
+      "chain": "eip155:42161",
+      "kind": "native",
+      "symbol": "ETH",
+      "decimals": 18,
+      "name": "Ether",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "ethereum.usd"
+      },
+      "color": "#3F4A8A",
+      "logo": "eip155:42161/slip44:60/icon.svg"
+    },
+    {
+      "id": "eip155:42161/erc20:0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "chain": "eip155:42161",
+      "kind": "erc20",
+      "symbol": "USDC",
+      "decimals": 6,
+      "name": "USD Coin",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "usd-coin.usd"
+      },
+      "color": "#2775CA",
+      "logo": "eip155:42161/erc20:0xaf88d065e77c8cc2239327c5edb3a432268e5831/icon.svg"
+    },
+    {
+      "id": "eip155:56/slip44:714",
+      "chain": "eip155:56",
+      "kind": "native",
+      "symbol": "BNB",
+      "decimals": 18,
+      "name": "BNB",
+      "price": {
+        "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+        "field": "binancecoin.usd"
+      },
+      "color": "#D99A00",
+      "logo": "eip155:56/slip44:714/icon.svg"
+    }
+  ],
+  "apiOrigin": "https://api.payroof.top",
+  "storOrigin": "https://stor.top",
+  "development": {
+    "networks": [
+      {
+        "id": "eip155:31337",
+        "name": "Anvil",
+        "transaction_mode": "eip1559",
+        "enabled": false,
+        "color": "#5B6B85",
+        "logo": "eip155:31337/icon.svg"
+      }
+    ],
+    "assets": [
+      {
+        "id": "eip155:31337/slip44:60",
+        "chain": "eip155:31337",
+        "kind": "native",
+        "symbol": "ETH",
+        "decimals": 18,
+        "name": "Test Ether",
+        "color": "#8A94A8",
+        "logo": "eip155:31337/slip44:60/icon.svg"
+      },
+      {
+        "id": "eip155:31337/erc20:0x5fbdb2315678afecb367f032d93f642f64180aa3",
+        "chain": "eip155:31337",
+        "kind": "erc20",
+        "symbol": "TEST",
+        "decimals": 6,
+        "name": "Payroof Test TEST",
+        "color": "#7C8BA1",
+        "logo": "eip155:31337/erc20:0x5fbdb2315678afecb367f032d93f642f64180aa3/icon.svg"
+      },
+      {
+        "id": "eip155:31337/erc20:0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
+        "chain": "eip155:31337",
+        "kind": "erc20",
+        "symbol": "USDC",
+        "decimals": 6,
+        "name": "Payroof Test USDC",
+        "price": {
+          "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+          "field": "usd-coin.usd"
+        },
+        "color": "#2775CA",
+        "logo": "eip155:31337/erc20:0xdc64a140aa3e981100a9beca4e685f962f0cf6c9/icon.svg"
+      },
+      {
+        "id": "eip155:31337/erc20:0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6",
+        "chain": "eip155:31337",
+        "kind": "erc20",
+        "symbol": "DAI",
+        "decimals": 18,
+        "name": "Payroof Test DAI",
+        "price": {
+          "url": "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,polygon-ecosystem-token,binancecoin,usd-coin,tether,weth,dai&vs_currencies=usd",
+          "field": "dai.usd"
+        },
+        "color": "#F5AC37",
+        "logo": "eip155:31337/erc20:0x2279b7a0a67db372996a5fab50d91eaa73d2ebe6/icon.svg"
+      }
+    ]
+  }
+}
