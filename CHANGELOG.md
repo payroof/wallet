@@ -3,6 +3,13 @@
 All notable changes to this project are documented here. The format follows
 Keep a Changelog, and the project follows Semantic Versioning.
 
+## [0.1.1] - 2026-10-25
+
+### Added
+
+- The macOS app is a universal build: it runs on Intel Macs as well as Apple Silicon.
+- `./build-apple.sh macos-universal` builds that app locally.
+
 ## [0.1.0] - 2026-10-25
 
 - First public release of Payroof Wallet, a self-custody EVM wallet for macOS and iOS.

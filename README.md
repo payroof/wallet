@@ -21,7 +21,7 @@ A self-custody EVM wallet for macOS and iOS. Your keys never leave your device.
 
 ## Install
 
-macOS 15 or later, Apple Silicon, with [Homebrew](https://brew.sh):
+macOS 15 or later (Apple Silicon or Intel), with [Homebrew](https://brew.sh):
 
 ```sh
 brew install --cask payroof/tap/wallet

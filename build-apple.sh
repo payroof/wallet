@@ -50,6 +50,8 @@ fi
 architecture=${architecture:-$(uname -m)}
 [[ -n "${local_ios:-}" ]] || case "$product" in
   macos) case "$(uname -m)" in arm64) target=aarch64-apple-darwin ;; x86_64) target=x86_64-apple-darwin ;; *) exit 2 ;; esac; sdk=macosx; destination='generic/platform=macOS' ;;
+  # One app for Apple Silicon and Intel Macs (the release build).
+  macos-universal) target=universal-apple-darwin; universal=(aarch64-apple-darwin x86_64-apple-darwin); architecture='arm64 x86_64'; sdk=macosx; destination='generic/platform=macOS'; product=macos ;;
   ios) target=aarch64-apple-ios; architecture=arm64; sdk=iphoneos; destination='generic/platform=iOS' ;;
   ios-device)
     : "${DEVELOPMENT_TEAM:?set DEVELOPMENT_TEAM to your Apple development team ID}"
@@ -59,17 +61,28 @@ architecture=${architecture:-$(uname -m)}
       "DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM")
     if [[ -n "${BUNDLE_ID:-}" ]]; then signing+=("PRODUCT_BUNDLE_IDENTIFIER=$BUNDLE_ID"); fi ;;
   ios-simulator) case "$(uname -m)" in arm64) target=aarch64-apple-ios-sim ;; x86_64) target=x86_64-apple-ios ;; *) exit 2 ;; esac; sdk=iphonesimulator; destination='generic/platform=iOS Simulator'; product=ios ;;
-   *) echo 'usage: build-apple.sh [macos|macos-local|ios|ios-device|ios-device-local|ios-simulator]' >&2; exit 2 ;;
+   *) echo 'usage: build-apple.sh [macos|macos-universal|macos-local|ios|ios-device|ios-device-local|ios-simulator]' >&2; exit 2 ;;
 esac
 # Use rustup's toolchain (rust-toolchain.toml + the target added below), not a cargo/rustc
 # earlier on PATH (e.g. Homebrew's rust), which has no standard library for iOS targets.
 rustup_bin="$(dirname "$(command -v rustup)")"
 export PATH="$rustup_bin:$PATH"
-rustup target add "$target"
-cargo build --locked -p payroof-wallet-core --lib --release --target "$target" ${features[@]+"${features[@]}"}
+if [[ -n "${universal:-}" ]]; then
+  rustup target add "${universal[@]}"
+  for arch_target in "${universal[@]}"; do
+    cargo build --locked -p payroof-wallet-core --lib --release --target "$arch_target"
+  done
+  mkdir -p "target/$target/release"
+  lipo -create -output "target/$target/release/libpayroof_wallet_core.a" \
+    "target/${universal[0]}/release/libpayroof_wallet_core.a" "target/${universal[1]}/release/libpayroof_wallet_core.a"
+else
+  rustup target add "$target"
+  cargo build --locked -p payroof-wallet-core --lib --release --target "$target" ${features[@]+"${features[@]}"}
+fi
 mkdir -p "$product/Generated"
-cargo run --locked --bin uniffi-bindgen -- generate --library "target/$target/release/libpayroof_wallet_core.a" --language swift --out-dir "$product/Generated"
+# The bindings are the same for every architecture; uniffi reads them from a thin library.
+cargo run --locked --bin uniffi-bindgen -- generate --library "target/${universal[0]:-$target}/release/libpayroof_wallet_core.a" --language swift --out-dir "$product/Generated"
 cp "$product/Generated/payroof_wallet_coreFFI.modulemap" "$product/Generated/module.modulemap"
 cp "target/$target/release/libpayroof_wallet_core.a" "$product/Generated/"
 (cd "$product" && xcodegen generate)
-xcodebuild -project "$product/PayroofWallet.xcodeproj" -scheme PayroofWallet -configuration "$configuration" -sdk "$sdk" -destination "$destination" -derivedDataPath "target/apple-$sdk$derived_suffix" ARCHS="$architecture" ONLY_ACTIVE_ARCH=YES "${signing[@]}" build
+xcodebuild -project "$product/PayroofWallet.xcodeproj" -scheme PayroofWallet -configuration "$configuration" -sdk "$sdk" -destination "$destination" -derivedDataPath "target/apple-$sdk$derived_suffix" ARCHS="$architecture" ONLY_ACTIVE_ARCH=NO "${signing[@]}" build

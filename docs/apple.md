@@ -5,6 +5,7 @@ Run from the repository root (Xcode, XcodeGen and the pinned Rust toolchain are 
 ```sh
 ./build-apple.sh macos
 ./build-apple.sh ios-simulator
+./build-apple.sh macos-universal   # one app for Apple Silicon and Intel (used for releases)
 ```
 
 The script builds the Rust static library with `--locked`, generates UniFFI
@@ -388,7 +389,7 @@ are not automated.
 Versions follow [SemVer](https://semver.org). The app's `MARKETING_VERSION` (in
 `macos/project.yml` and `ios/project.yml`) matches `Cargo.toml`, and changes are listed in
 [CHANGELOG.md](../CHANGELOG.md). A `vX.Y.Z` tag runs the release workflow: checks, then the
-macOS app build, then a GitHub release with the app zip, then
+universal macOS app build, then a GitHub release with the app zip, then
 [`payroof-wallet-core`](https://crates.io/crates/payroof-wallet-core) on crates.io. The
 [Homebrew tap](https://github.com/payroof/homebrew-tap) picks up the new release on its own.
 The macOS app is ad-hoc signed, not notarized, so macOS asks once on first launch (System
