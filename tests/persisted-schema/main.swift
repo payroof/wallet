@@ -29,7 +29,10 @@ let defaults = WalletDefaults(
       endpoint: "https://public.example", enabled: true, color: "ocean")
   ], assets: [], apiOrigin: "https://api.example",
   storOrigin: "https://stor.example")
-let stored = try JSONEncoder().encode(LocalSettings(defaults: defaults))
+// Sorted keys: the edits below find fields by their neighbours, which needs a stable order.
+let sortedEncoder = JSONEncoder()
+sortedEncoder.outputFormatting = .sortedKeys
+let stored = try sortedEncoder.encode(LocalSettings(defaults: defaults))
 let seeded = try LocalSettingsCodec.decode(stored)
 precondition(seeded.version == LocalSettings.schema)
 precondition(seeded.networks.first?.endpoint == "https://public.example")
