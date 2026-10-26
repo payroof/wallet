@@ -3,6 +3,17 @@
 All notable changes to this project are documented here. The format follows
 Keep a Changelog, and the project follows Semantic Versioning.
 
+## [0.2.0] - 2026-10-26
+
+### Changed
+
+- The macOS app is now `Payroof.app` (was `PayroofWallet.app`). Its bundle identifier is
+  unchanged, so an existing wallet is kept; delete the old `PayroofWallet.app` from
+  Applications after installing.
+- Releases ship `Payroof.dmg`, a disk image with a drag-to-Applications window, instead of a
+  zip. The latest one is always at
+  https://github.com/payroof/wallet/releases/latest/download/Payroof.dmg.
+
 ## [0.1.1] - 2026-10-25
 
 ### Added

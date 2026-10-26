@@ -42,16 +42,26 @@ jobs:
       - run: brew install xcodegen
       - run: rustup toolchain install
       - run: CONFIGURATION=Release ./build-apple.sh macos-universal
-      - name: Ad-hoc sign and zip PayroofWallet.app
+      - name: Ad-hoc sign Payroof.app
         run: |
-          app=target/apple-macosx/Build/Products/Release/PayroofWallet.app
+          app=target/apple-macosx/Build/Products/Release/Payroof.app
           codesign --force --deep --sign - --options runtime --entitlements macos/Wallet.entitlements "$app"
           codesign --verify --strict "$app"
-          ditto -c -k --keepParent "$app" PayroofWallet-macos.zip
+      - name: Pack Payroof.dmg (drag to Applications)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/dmg"
+          "$RUNNER_TEMP/dmg/bin/pip" install --quiet dmgbuild==1.6.7
+          PATH="$RUNNER_TEMP/dmg/bin:$PATH" apple/make-dmg.sh \
+            target/apple-macosx/Build/Products/Release/Payroof.app Payroof.dmg
+          mnt="$(mktemp -d)"
+          hdiutil attach -readonly -nobrowse -mountpoint "$mnt" Payroof.dmg
+          codesign --verify --strict --deep "$mnt/Payroof.app"
+          test -L "$mnt/Applications"
+          hdiutil detach "$mnt"
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: macos-app
-          path: PayroofWallet-macos.zip
+          path: Payroof.dmg
           if-no-files-found: error
   release:
     name: GitHub release
@@ -72,7 +82,7 @@ jobs:
           version="${GITHUB_REF_NAME#v}"
           awk -v v="[$version]" '/^## /{p = index($0, v) > 0; next} p && !/^\[/' CHANGELOG.md > notes.md
           test -s notes.md
-          (cd dist && sha256sum -- *.zip > SHA256SUMS)
+          (cd dist && sha256sum -- *.dmg > SHA256SUMS)
           gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --title "$GITHUB_REF_NAME" --notes-file notes.md
   crate:
     name: crates.io

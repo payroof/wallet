@@ -21,15 +21,28 @@ A self-custody EVM wallet for macOS and iOS. Your keys never leave your device.
 
 ## Install
 
-macOS 15 or later (Apple Silicon or Intel), with [Homebrew](https://brew.sh):
+**[⬇ Download Payroof.dmg](https://github.com/payroof/wallet/releases/latest/download/Payroof.dmg)**
+· macOS 15 or later · Apple Silicon and Intel ·
+[SHA256SUMS](https://github.com/payroof/wallet/releases/latest/download/SHA256SUMS)
+
+1. Open `Payroof.dmg`.
+2. Drag **Payroof** onto **Applications**:
+
+   <img src="docs/install.png" width="560" alt="Drag Payroof.app onto the Applications folder">
+
+3. Eject the Payroof disk (⏏ in the Finder sidebar) and open Payroof from Applications or
+   Launchpad.
+4. First launch only: the app is not notarized yet, so macOS blocks it once. Open
+   **System Settings → Privacy & Security** and click **Open Anyway**.
+
+Or with [Homebrew](https://brew.sh), which does all of the above:
 
 ```sh
 brew install --cask payroof/tap/wallet
 ```
 
-The app is not notarized yet: on first launch, open it via System Settings → Privacy & Security → Open Anyway.
-You can also download the zip of `PayroofWallet.app` from
-[GitHub Releases](https://github.com/payroof/wallet/releases).
+To update, install the new version the same way; your wallet stays in the app's sandbox and
+is kept. Earlier releases are on [GitHub Releases](https://github.com/payroof/wallet/releases).
 
 The Rust core is on [crates.io](https://crates.io/crates/payroof-wallet-core):
 

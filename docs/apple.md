@@ -50,7 +50,7 @@ chmod 700 ../.local/manual/wallet
 open -n -F \
   --env PAYROOF_WALLET_LOCAL_DEVELOPMENT=1 \
   --env PAYROOF_WALLET_DATA_DIR="$(cd .. && pwd)/.local/manual/wallet" \
-  "$PWD/target/apple-macosx-local/Build/Products/Debug/PayroofWallet.app"
+  "$PWD/target/apple-macosx-local/Build/Products/Debug/Payroof.app"
 ```
 
 Quit this instance before reopening it. Do not concurrently open two instances
@@ -389,9 +389,16 @@ are not automated.
 Versions follow [SemVer](https://semver.org). The app's `MARKETING_VERSION` (in
 `macos/project.yml` and `ios/project.yml`) matches `Cargo.toml`, and changes are listed in
 [CHANGELOG.md](../CHANGELOG.md). A `vX.Y.Z` tag runs the release workflow: checks, then the
-universal macOS app build, then a GitHub release with the app zip, then
+universal macOS app build, then a GitHub release with `Payroof.dmg` (drag-to-Applications
+disk image, packed by [`apple/make-dmg.sh`](../apple/make-dmg.sh)), then
 [`payroof-wallet-core`](https://crates.io/crates/payroof-wallet-core) on crates.io. The
 [Homebrew tap](https://github.com/payroof/homebrew-tap) picks up the new release on its own.
 The macOS app is ad-hoc signed, not notarized, so macOS asks once on first launch (System
 Settings → Privacy & Security → Open Anyway). Notarisation and App Store submission
 need your Apple team and are not automated.
+
+The macOS app is `Payroof.app` (Xcode target and scheme `PayroofWallet`). To pack a disk image
+locally after a Release build: `pip install dmgbuild` and
+`apple/make-dmg.sh target/apple-macosx/Build/Products/Release/Payroof.app target/Payroof.dmg`.
+The window picture comes from `xcrun swift apple/generate-dmg-background.swift`, which also
+renders the README's `docs/install.png`.
