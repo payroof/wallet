@@ -13,9 +13,9 @@
 //! The account is slot 0 of the test mnemonic (`m/44'/60'/0'/0/i`). Anvil's own unlocked
 //! accounts are the same keys, so account 9 (never part of the wallet) funds and deploys.
 
-use wallet::ffi::{Wallet, local_development_enabled};
 use serde_json::{Value, json};
 use std::sync::{Arc, Mutex, MutexGuard, OnceLock};
+use wallet::ffi::{Wallet, local_development_enabled};
 
 const DEFAULT_RPC: &str = "http://127.0.0.1:18545";
 const CHAIN: &str = "eip155:31337";
