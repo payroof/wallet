@@ -1,5 +1,5 @@
 [package]
-name = "payroof-wallet-core"
+name = "wallet"
 description = "Local mnemonic vault, deterministic addresses, and cryptocurrency signing for Payroof Wallet"
 repository = "https://github.com/payroof/wallet"
 homepage = "https://github.com/payroof/wallet"
@@ -8,7 +8,7 @@ categories = ["cryptography::cryptocurrencies"]
 readme = "README.md"
 # The published crate holds only what it builds from (no apps, CI, tests or Docker).
 include = ["src/**", "build.rs", "assets/defaults.json", "assets/providers.json", "assets/icons/**", "README.md", "CHANGELOG.md", "LICENSE-*"]
-version = "0.2.0"
+version = "0.3.0"
 edition = "2024"
 rust-version = "1.99"
 license = "MIT OR Apache-2.0"

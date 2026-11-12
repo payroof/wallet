@@ -1,4 +1,4 @@
-use payroof_wallet_core::{
+use wallet::{
     api, mnemonic, pairing,
     path_source::{self, Imported},
     projects::Projects,
@@ -34,7 +34,7 @@ fn development_allows_only_http_on_explicit_loopback() {
         "http://[::1]:8545",
     ] {
         assert!(api::origin(url, true).is_ok());
-        assert!(payroof_wallet_core::networks::validate_rpc(url, true).is_ok());
+        assert!(wallet::networks::validate_rpc(url, true).is_ok());
         assert!(api::origin(url, false).is_err());
     }
     for url in [
@@ -44,7 +44,7 @@ fn development_allows_only_http_on_explicit_loopback() {
         "https://user@example.com",
     ] {
         assert!(api::origin(url, true).is_err());
-        assert!(payroof_wallet_core::networks::validate_rpc(url, true).is_err());
+        assert!(wallet::networks::validate_rpc(url, true).is_err());
     }
 }
 #[test]

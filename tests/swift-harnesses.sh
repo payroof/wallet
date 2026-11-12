@@ -29,17 +29,17 @@ xcrun swiftc "$shared/Model/WalletIncomingLink.swift" "$shared/Platform/LocalDev
 
 echo "==> native runtime (Rust core with local-development)"
 target="$(uname -m | sed 's/arm64/aarch64/')-apple-darwin"
-cargo build --locked -p payroof-wallet-core --lib --release --target "$target" \
+cargo build --locked -p wallet --lib --release --target "$target" \
   --features local-development --target-dir target/harness
 cargo run --locked --bin uniffi-bindgen -- generate \
-  --library "target/harness/$target/release/libpayroof_wallet_core.a" --language swift \
+  --library "target/harness/$target/release/libwallet.a" --language swift \
   --out-dir "$out/bindings" >/dev/null
-xcrun swiftc -parse-as-library -D DEBUG -I "$out/bindings" -Xcc -fmodule-map-file="$out/bindings/payroof_wallet_coreFFI.modulemap" \
-  -L "target/harness/$target/release" -lpayroof_wallet_core \
+xcrun swiftc -parse-as-library -D DEBUG -I "$out/bindings" -Xcc -fmodule-map-file="$out/bindings/walletFFI.modulemap" \
+  -L "target/harness/$target/release" -lwallet \
   "$shared"/Model/Worker/*.swift "$shared"/Model/WalletSnapshot.swift "$shared"/Model/WalletCommand.swift "$shared"/Model/SendFees.swift \
   "$shared"/Model/Formatting.swift "$shared"/Model/Portfolio.swift "$shared"/Model/Domain/*.swift \
   "$shared"/Platform/LocalDevelopment.swift "$shared"/Platform/VaultStorage.swift "$shared"/Platform/DeviceUnlock.swift \
-  "$out/bindings/payroof_wallet_core.swift" tests/native-runtime/main.swift -o "$out/native-runtime"
+  "$out/bindings/wallet.swift" tests/native-runtime/main.swift -o "$out/native-runtime"
 mkdir -m 700 "$data/runtime"
 PAYROOF_WALLET_LOCAL_DEVELOPMENT=1 PAYROOF_WALLET_DATA_DIR="$data/runtime" "$out/native-runtime"
 echo "All Swift harnesses passed."

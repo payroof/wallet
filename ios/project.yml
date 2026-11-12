@@ -15,7 +15,7 @@ targets:
         excludes: ["*.a"]
     settings:
       base:
-        MARKETING_VERSION: 0.2.0
+        MARKETING_VERSION: 0.3.0
         CURRENT_PROJECT_VERSION: 3
         PRODUCT_BUNDLE_IDENTIFIER: top.payroof.wallet
         SWIFT_VERSION: "6.0"
@@ -28,7 +28,7 @@ targets:
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
         OTHER_SWIFT_FLAGS: "$(inherited) -I $(SRCROOT)/Generated"
-        OTHER_LDFLAGS: "$(inherited) -L $(SRCROOT)/Generated -lpayroof_wallet_core"
+        OTHER_LDFLAGS: "$(inherited) -L $(SRCROOT)/Generated -lwallet"
         ENABLE_APP_SANDBOX: YES
         ENABLE_HARDENED_RUNTIME: YES
         CODE_SIGN_ENTITLEMENTS: Wallet.entitlements

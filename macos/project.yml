@@ -17,7 +17,7 @@ targets:
         excludes: ["*.a"]
     settings:
       base:
-        MARKETING_VERSION: 0.2.0
+        MARKETING_VERSION: 0.3.0
         CURRENT_PROJECT_VERSION: 3
         PRODUCT_BUNDLE_IDENTIFIER: top.payroof.wallet
         PRODUCT_NAME: Payroof
@@ -29,7 +29,7 @@ targets:
         INFOPLIST_KEY_NSCameraUsageDescription: Scan recovery words to open your wallet
         INFOPLIST_KEY_NSFaceIDUsageDescription: Unlock your wallet
         OTHER_SWIFT_FLAGS: "$(inherited) -I $(SRCROOT)/Generated"
-        OTHER_LDFLAGS: "$(inherited) -L $(SRCROOT)/Generated -lpayroof_wallet_core"
+        OTHER_LDFLAGS: "$(inherited) -L $(SRCROOT)/Generated -lwallet"
         ENABLE_APP_SANDBOX: YES
         ENABLE_HARDENED_RUNTIME: YES
         CODE_SIGN_ENTITLEMENTS: Wallet.entitlements

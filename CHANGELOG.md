@@ -3,6 +3,12 @@
 All notable changes to this project are documented here. The format follows
 Keep a Changelog, and the project follows Semantic Versioning.
 
+## [0.3.0] - 2026-11-12
+
+### Changed
+
+- The crate is renamed from `payroof-wallet-core` to `wallet` (library name `wallet`).
+
 ## [0.2.0] - 2026-10-26
 
 ### Changed

@@ -5,7 +5,7 @@ A self-custody EVM wallet for macOS and iOS. Your keys never leave your device.
 <img src="docs/screenshot.png" alt="Payroof Wallet">
 
 [![CI](https://github.com/payroof/wallet/actions/workflows/ci.yml/badge.svg)](https://github.com/payroof/wallet/actions/workflows/ci.yml)
-[![crates.io](https://img.shields.io/crates/v/payroof-wallet-core.svg)](https://crates.io/crates/payroof-wallet-core)
+[![crates.io](https://img.shields.io/crates/v/wallet.svg)](https://crates.io/crates/wallet)
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
 
 ## Features
@@ -44,10 +44,10 @@ brew install --cask payroof/tap/wallet
 To update, install the new version the same way; your wallet stays in the app's sandbox and
 is kept. Earlier releases are on [GitHub Releases](https://github.com/payroof/wallet/releases).
 
-The Rust core is on [crates.io](https://crates.io/crates/payroof-wallet-core):
+The Rust core is on [crates.io](https://crates.io/crates/wallet):
 
 ```sh
-cargo add payroof-wallet-core
+cargo add wallet
 ```
 
 ## Build from source

@@ -1314,8 +1314,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "payroof-wallet-core"
-version = "0.2.0"
+name = "wallet"
+version = "0.3.0"
 dependencies = [
  "altcha",
  "anyhow",

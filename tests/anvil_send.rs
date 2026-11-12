@@ -13,7 +13,7 @@
 //! The account is slot 0 of the test mnemonic (`m/44'/60'/0'/0/i`). Anvil's own unlocked
 //! accounts are the same keys, so account 9 (never part of the wallet) funds and deploys.
 
-use payroof_wallet_core::ffi::{Wallet, local_development_enabled};
+use wallet::ffi::{Wallet, local_development_enabled};
 use serde_json::{Value, json};
 use std::sync::{Arc, Mutex, MutexGuard, OnceLock};
 

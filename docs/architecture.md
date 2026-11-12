@@ -112,7 +112,7 @@ broadcast, and sequences nonces per sender. The plan lasts 15 minutes (120 s to 
 
 | Path | Contents |
 |---|---|
-| `src/` | Rust core (`payroof-wallet-core`): derivation, vault, RPC, signing, API client. Exposed to Swift with UniFFI |
+| `src/` | Rust core (`wallet`): derivation, vault, RPC, signing, API client. Exposed to Swift with UniFFI |
 | `apple/Shared/` | The SwiftUI app shared by both platforms |
 | `macos/`, `ios/` | XcodeGen projects, entry points, assets, macOS unit tests |
 | `assets/defaults.json` | Networks, RPCs, tokens and price sources a new wallet starts with |

@@ -1,4 +1,4 @@
-use payroof_wallet_core::{derivation, recovery};
+use wallet::{derivation, recovery};
 const WORDS: &str =
     "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about";
 #[test]
@@ -56,7 +56,7 @@ fn recovery_vectors() {
 }
 #[test]
 fn hidden_slots_are_not_reused() {
-    let mut p = payroof_wallet_core::projects::Projects::default();
+    let mut p = wallet::projects::Projects::default();
     let first = p.add("a".into(), None).unwrap();
     p.hide(first);
     assert_eq!(p.add("b".into(), None).unwrap(), first + 1);

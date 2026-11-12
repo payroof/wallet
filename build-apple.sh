@@ -70,19 +70,19 @@ export PATH="$rustup_bin:$PATH"
 if [[ -n "${universal:-}" ]]; then
   rustup target add "${universal[@]}"
   for arch_target in "${universal[@]}"; do
-    cargo build --locked -p payroof-wallet-core --lib --release --target "$arch_target"
+    cargo build --locked -p wallet --lib --release --target "$arch_target"
   done
   mkdir -p "target/$target/release"
-  lipo -create -output "target/$target/release/libpayroof_wallet_core.a" \
-    "target/${universal[0]}/release/libpayroof_wallet_core.a" "target/${universal[1]}/release/libpayroof_wallet_core.a"
+  lipo -create -output "target/$target/release/libwallet.a" \
+    "target/${universal[0]}/release/libwallet.a" "target/${universal[1]}/release/libwallet.a"
 else
   rustup target add "$target"
-  cargo build --locked -p payroof-wallet-core --lib --release --target "$target" ${features[@]+"${features[@]}"}
+  cargo build --locked -p wallet --lib --release --target "$target" ${features[@]+"${features[@]}"}
 fi
 mkdir -p "$product/Generated"
 # The bindings are the same for every architecture; uniffi reads them from a thin library.
-cargo run --locked --bin uniffi-bindgen -- generate --library "target/${universal[0]:-$target}/release/libpayroof_wallet_core.a" --language swift --out-dir "$product/Generated"
-cp "$product/Generated/payroof_wallet_coreFFI.modulemap" "$product/Generated/module.modulemap"
-cp "target/$target/release/libpayroof_wallet_core.a" "$product/Generated/"
+cargo run --locked --bin uniffi-bindgen -- generate --library "target/${universal[0]:-$target}/release/libwallet.a" --language swift --out-dir "$product/Generated"
+cp "$product/Generated/walletFFI.modulemap" "$product/Generated/module.modulemap"
+cp "target/$target/release/libwallet.a" "$product/Generated/"
 (cd "$product" && xcodegen generate)
 xcodebuild -project "$product/PayroofWallet.xcodeproj" -scheme PayroofWallet -configuration "$configuration" -sdk "$sdk" -destination "$destination" -derivedDataPath "target/apple-$sdk$derived_suffix" ARCHS="$architecture" ONLY_ACTIVE_ARCH=NO "${signing[@]}" build
